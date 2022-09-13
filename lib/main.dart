@@ -6,9 +6,15 @@ import 'graphql/GraphQLConfig.dart';
 GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
 void main() {
-  runApp(GraphQLProvider(
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(
+    GraphQLProvider(
       client: graphQLConfiguration.client,
-      child: CacheProvider(child: MyApp())));
+      child: const CacheProvider(
+        child: MyApp(),
+      ),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

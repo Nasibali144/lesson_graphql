@@ -2,7 +2,7 @@ class QueryMutation {
   String userList(int page) {
     return """
 query{
-    users(limit: $page, order_by: {timestamp: desc}) {
+    users(limit: $page, order_by: {created_at: desc}) {
         id
         name
         rocket
@@ -14,7 +14,6 @@ query{
 
   String insertUser(String name, String rocket, String twitter) {
     return """
-
 mutation {
     insert_users(objects: {name: "$name", rocket: "$rocket", twitter: "$twitter"}) {
         affected_rows

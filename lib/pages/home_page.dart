@@ -25,9 +25,8 @@ class _HomePageState extends State<HomePage> {
 
   void apiUserList() async {
     QueryMutation queryMutation = QueryMutation();
-    GraphQLClient _client =
-        graphQLConfiguration.clientToQuery() as GraphQLClient;
-    QueryResult result = await _client.query(
+    GraphQLClient client = graphQLConfiguration.clientToQuery();
+    QueryResult result = await client.query(
       QueryOptions(
         document: gql(queryMutation.userList(20)),
       ),
@@ -45,7 +44,7 @@ class _HomePageState extends State<HomePage> {
       }
       print(users.length.toString());
     } else {
-      print("Error");
+      print("Error: ${result.toString()}");
     }
   }
 
@@ -70,7 +69,7 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             icon: Icon(Icons.add_circle_outline),
-            onPressed: (){
+            onPressed: () {
               _insertUser(context);
             },
             tooltip: "Insert User",
@@ -78,12 +77,12 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: ListView.builder(
-          itemCount: users.length,
-          itemBuilder: (context, index) {
-            var user = users[index];
+        itemCount: users.length,
+        itemBuilder: (context, index) {
+          var user = users[index];
 
-            return Card(
-                child: Container(
+          return Card(
+            child: Container(
               color: Colors.white,
               padding: EdgeInsets.all(10),
               child: Column(
@@ -94,8 +93,10 @@ class _HomePageState extends State<HomePage> {
                   Text(user.twitter)
                 ],
               ),
-            ));
-          }),
+            ),
+          );
+        },
+      ),
     );
   }
 }
